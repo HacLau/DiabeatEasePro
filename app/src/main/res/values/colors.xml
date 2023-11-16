@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="bg_qa_item_0">#DBE9FF</color>
+    <color name="bg_qa_item_1">#C2F4E9</color>
+    <color name="bg_qa_item_2">#FFEDD1</color>
+    <color name="bg_qa_item_3">#FFCFCF</color>
+
+    <color name="bg_qa_item_icon_0">#2A7EFD</color>
+    <color name="bg_qa_item_icon_1">#32CFAC</color>
+    <color name="bg_qa_item_icon_2">#FDA92A</color>
+    <color name="bg_qa_item_icon_3">#D85032</color>
+
+    <color name="bg_sugar_item_0">#E2F3FF</color>
+    <color name="bg_sugar_item_1">#C3F4EA</color>
+    <color name="bg_sugar_item_2">#FFF8E3</color>
+    <color name="bg_sugar_item_3">#FFEEEB</color>
+
+    <color name="bg_sugar_item_top_0">#CEE5FF</color>
+    <color name="bg_sugar_item_top_1">#A8EBDC</color>
+    <color name="bg_sugar_item_top_2">#FEECBD</color>
+    <color name="bg_sugar_item_top_3">#FFD5CE</color>
+
+    <color name="text_sugar_item_title_0">#7B8DCE</color>
+    <color name="text_sugar_item_title_1">#2B917A</color>
+    <color name="text_sugar_item_title_2">#B4A865</color>
+    <color name="text_sugar_item_title_3">#C07C7C</color>
+
+
+    <color name="main">#FDA92A</color>
+    <color name="normal">#B8B8B8</color>
+    <color name="bg_nav">#13121A</color>
+    <color name="bg_step">#DFECFF</color>
+
+</resources>

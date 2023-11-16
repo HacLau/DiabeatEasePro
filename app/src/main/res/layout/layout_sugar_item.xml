@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.diabeat.ease.pro.constant.LongKt" />
+
+        <variable
+            name="sugar"
+            type="com.diabeat.ease.pro.databinding.Sugar" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="106dp">
+
+        <ImageView
+            android:id="@+id/top_bg"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:src="@{sugar.topBg}"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:text="@{LongKt.formatTimeItem(sugar.time)}"
+            android:textColor="@{sugar.timeColor}"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/top_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/top_bg" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:onClickListener="@{sugar.onItemClick}"
+            app:layout_constraintBottom_toBottomOf="@id/top_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/top_bg"
+            app:layout_goneMarginEnd="12dp" />
+
+        <ImageView
+            android:id="@+id/bottom_bg"
+            android:layout_width="match_parent"
+            android:layout_height="76dp"
+            android:src="@{sugar.bottomBg}"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="18dp"
+            android:src="@{sugar.icon}"
+            app:layout_constraintBottom_toBottomOf="@id/bottom_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bottom_bg" />
+
+        <TextView
+            android:id="@+id/data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13sp"
+            android:fontFamily="sans-serif-black"
+            android:text="@{String.valueOf(sugar.data)}"
+            android:textColor="#13121A"
+            android:textSize="19sp"
+            app:layout_constraintStart_toEndOf="@id/icon"
+            app:layout_constraintTop_toTopOf="@id/icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mg/dl"
+            android:textColor="#333333"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/data"
+            app:layout_constraintStart_toEndOf="@id/data" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{sugar.titleList.get(sugar.level)}"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/icon"
+            app:layout_constraintStart_toStartOf="@id/data"
+            app:layout_constraintTop_toBottomOf="@id/data" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
