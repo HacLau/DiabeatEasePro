@@ -11,7 +11,7 @@
 
         <variable
             name="activity"
-            type="com.diabeat.ease.pro.activity.NewActivity" />
+            type="com.diabeat.ease.pro.activity.ConditionActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,27 +60,34 @@
                 android:layout_height="130dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="89dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginEnd="-17dp"
-                android:layout_marginBottom="27dp"
-                android:ellipsize="end"
-                android:lines="3"
                 android:paddingStart="16dp"
                 android:paddingTop="23dp"
                 android:paddingEnd="33dp"
                 android:paddingBottom="23dp"
-                android:text="Keep recording your blood pressure to understand your health status"
-                android:textColor="@color/white"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@id/home_image"
-                app:layout_constraintEnd_toStartOf="@id/home_image"
+                android:background="@color/bg_qa_item_icon_0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toStartOf="@id/home_image"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="3"
+                    android:text="Keep recording your blood pressure to understand your health status"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/condition_rv"

@@ -4,7 +4,6 @@ import androidx.databinding.BaseObservable
 import com.diabeat.ease.pro.constant.formatTimeMain
 
 data class RG(
-    var currentIndex:Int = 0,
     var naviTitle:MutableList<String> = mutableListOf<String>().apply {
         add("Home")
         add("Blood Sugar")

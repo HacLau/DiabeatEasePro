@@ -16,3 +16,16 @@ fun Long.formatTimeItem(): String {
     }
 }
 
+fun Long.formatTimeNew(): MutableList<String> {
+    return mutableListOf<String>().apply {
+        Calendar.getInstance().let {
+            it.timeInMillis = this@formatTimeNew
+            add("${it.get(Calendar.YEAR)}")
+            add((it.get(Calendar.MONTH) + 1).formatTwoString())
+            add(it.get(Calendar.DATE).formatTwoString())
+            add(it.get(Calendar.HOUR_OF_DAY).formatTwoString())
+            add(it.get(Calendar.MINUTE).formatTwoString())
+        }
+    }
+}
+

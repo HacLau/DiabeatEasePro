@@ -4,9 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="currentIndex"
+            type="java.lang.Integer" />
+
         <variable
             name="rg"
             type="com.diabeat.ease.pro.databinding.RG" />
+
+        <variable
+            name="activity"
+            type="com.diabeat.ease.pro.activity.MainActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,30 +32,20 @@
             android:gravity="start|center_vertical"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
+            android:text="@{rg.titleList.get(currentIndex)}"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:text="@{rg.titleList.get(rg.currentIndex)}"
             app:layout_constraintTop_toTopOf="parent" />
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:text="+"
-            android:padding="0dp"
-            android:textSize="38sp"
-            android:gravity="center"
-            app:layout_constraintBottom_toTopOf="@id/rg"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/bg_btn_yellow"/>
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/rg"
+            app:layout_constraintBottom_toTopOf="@id/radio_group"
             app:layout_constraintTop_toBottomOf="@id/title" />
+
         <RadioGroup
-            android:id="@+id/rg"
+            android:id="@+id/radio_group"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:gravity="center_vertical"
@@ -54,44 +53,62 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <RadioButton
+                android:id="@+id/rb_home"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:button="@null"
-                android:textColor="@color/nav_color"
-                android:checked="@{rg.currentIndex == 0}"
-                android:text="@{rg.currentIndex == 0? rg.naviTitle.get(rg.currentIndex) : rg.naviTitle.get(4)}"
-                android:drawableStart="@mipmap/ic_launcher" />
+                android:checked="@{currentIndex == 0}"
+                android:drawableStart="@mipmap/ic_launcher"
+                android:text="@{currentIndex == 0? rg.naviTitle.get(currentIndex) : rg.naviTitle.get(4)}"
+                android:textColor="@color/nav_color" />
 
             <RadioButton
+                android:id="@+id/rb_sugar"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:button="@null"
-                android:textColor="@color/nav_color"
-                android:text="@{rg.currentIndex == 1? rg.naviTitle.get(rg.currentIndex) : rg.naviTitle.get(4)}"
-                android:checked="@{rg.currentIndex == 1}"
-                android:drawableStart="@mipmap/ic_launcher" />
+                android:checked="@{currentIndex == 1}"
+                android:drawableStart="@mipmap/ic_launcher"
+                android:text="@{currentIndex == 1? rg.naviTitle.get(currentIndex) : rg.naviTitle.get(4)}"
+                android:textColor="@color/nav_color" />
 
             <RadioButton
+                android:id="@+id/rb_qa"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:button="@null"
-                android:textColor="@color/nav_color"
-                android:text="@{rg.currentIndex == 2? rg.naviTitle.get(rg.currentIndex) : rg.naviTitle.get(4)}"
-                android:checked="@{rg.currentIndex == 2}"
-                android:drawableStart="@mipmap/ic_launcher" />
+                android:checked="@{currentIndex == 2}"
+                android:drawableStart="@mipmap/ic_launcher"
+                android:text="@{currentIndex == 2? rg.naviTitle.get(currentIndex) : rg.naviTitle.get(4)}"
+                android:textColor="@color/nav_color" />
 
             <RadioButton
+                android:id="@+id/rb_me"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:button="@null"
-                android:textColor="@color/nav_color"
-                android:text="@{rg.currentIndex == 3? rg.naviTitle.get(rg.currentIndex) : rg.naviTitle.get(4)}"
-                android:checked="@{rg.currentIndex == 3}"
-                android:drawableStart="@mipmap/ic_launcher" />
+                android:checked="@{currentIndex == 3}"
+                android:drawableStart="@mipmap/ic_launcher"
+                android:text="@{currentIndex == 3? rg.naviTitle.get(currentIndex) : rg.naviTitle.get(4)}"
+                android:textColor="@color/nav_color" />
         </RadioGroup>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_btn_yellow"
+            android:gravity="center"
+            android:onClickListener="@{()->activity.startNewRecordActivity()}"
+            android:padding="0dp"
+            android:text="+"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/radio_group"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

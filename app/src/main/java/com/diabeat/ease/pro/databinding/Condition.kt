@@ -3,8 +3,8 @@ package com.diabeat.ease.pro.databinding
 import androidx.databinding.BaseObservable
 
 data class Condition(
-    var title: String,
-    var content: String,
+    var title: String = "",
+    var content: String = "",
     var titleList:MutableList<String> = mutableListOf(
         "Low","Normal","Pre-diabetes","Diabetes"
     ),
@@ -13,3 +13,9 @@ data class Condition(
     )
 ) : BaseObservable()
 
+val conditionList:List<Condition> = mutableListOf(
+    Condition(title = "Default", content = "For all unspecificed"),
+    Condition(title = "Before exercise"),
+    Condition(title = "Before a meal"),
+    Condition(title = "Fasting"),
+)

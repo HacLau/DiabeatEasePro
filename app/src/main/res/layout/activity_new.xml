@@ -5,13 +5,35 @@
 
     <data>
 
+        <import type="com.diabeat.ease.pro.constant.LongKt" />
+
+        <import type="android.view.View" />
+
         <variable
             name="title"
             type="java.lang.String" />
 
         <variable
+            name="sugar"
+            type="com.diabeat.ease.pro.databinding.Sugar" />
+
+        <variable
             name="activity"
             type="com.diabeat.ease.pro.activity.NewActivity" />
+
+        <import type="java.util.List" />
+
+        <variable
+            name="titleData"
+            type="List&lt;String>" />
+
+        <variable
+            name="iconData"
+            type="List&lt;Integer>" />
+
+        <variable
+            name="desData"
+            type="List&lt;String>" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,7 +81,7 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="3dp"
                 android:background="@drawable/bg_btn_blue"
-                android:drawableEnd="@drawable/ic_down"
+                android:drawableEnd="@mipmap/ic_down"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:text="234567"
@@ -87,6 +109,87 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <LinearLayout
+                    android:layout_width="197dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/bg_time"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@{LongKt.formatTimeNew(sugar.time).get(0)}"
+                        android:textColor="#1C72FF"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="20dp"
+                        android:background="#D7DDE6" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@{LongKt.formatTimeNew(sugar.time).get(1)}"
+                        android:textColor="#1C72FF"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="20dp"
+                        android:background="#D7DDE6" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@{LongKt.formatTimeNew(sugar.time).get(2)}"
+                        android:textColor="#1C72FF"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="88dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/bg_time"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@{LongKt.formatTimeNew(sugar.time).get(3)}"
+                        android:textColor="#1C72FF"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="20dp"
+                        android:background="#D7DDE6" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@{LongKt.formatTimeNew(sugar.time).get(4)}"
+                        android:textColor="#1C72FF"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -102,15 +205,35 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
+                    android:src="@mipmap/ic_change"
+                    android:onClickListener="@{()->activity.changeData()}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/edit_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:text="@{String.valueOf(sugar.data)}"
+                        android:textSize="40sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="mg/dl" />
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -129,7 +252,7 @@
                     android:id="@+id/level_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Normal"
+                    android:text="@{titleData.get(sugar.level)}"
                     android:textColor="#333333"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -139,6 +262,7 @@
                     android:id="@+id/level_des"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{desData.get(sugar.level)}"
                     android:textColor="#5B5B5B"
                     android:textSize="11sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -157,15 +281,27 @@
                         android:layout_width="54dp"
                         android:layout_height="54dp"
                         android:background="@drawable/bg_degree"
-                        android:src="@mipmap/ic_launcher"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/icon_0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_up"
+                        android:layout_width="31dp"
+                        android:layout_height="31dp"
+                        android:src="@{activity.resources.getDrawable(iconData.get(0))}"
+                        app:layout_constraintBottom_toBottomOf="@id/level_0"
+                        app:layout_constraintEnd_toEndOf="@id/level_0"
+                        app:layout_constraintStart_toStartOf="@id/level_0"
+                        app:layout_constraintTop_toTopOf="@id/level_0" />
+
+                    <ImageView
+                        android:id="@+id/icon_0"
+                        android:layout_width="17.5dp"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@mipmap/ic_level_up"
+                        android:visibility="@{sugar.level == 0?View.VISIBLE:View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@id/level_0"
                         app:layout_constraintStart_toStartOf="@id/level_0"
                         app:layout_constraintTop_toBottomOf="@id/level_0" />
@@ -175,16 +311,28 @@
                         android:layout_width="54dp"
                         android:layout_height="54dp"
                         android:background="@drawable/bg_degree"
-                        android:src="@mipmap/ic_launcher"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/icon_1"
                         app:layout_constraintEnd_toStartOf="@id/level_2"
                         app:layout_constraintStart_toEndOf="@id/level_0"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_up"
+                        android:layout_width="31dp"
+                        android:layout_height="31dp"
+                        android:src="@{activity.resources.getDrawable(iconData.get(1))}"
+                        app:layout_constraintBottom_toBottomOf="@id/level_1"
+                        app:layout_constraintEnd_toEndOf="@id/level_1"
+                        app:layout_constraintStart_toStartOf="@id/level_1"
+                        app:layout_constraintTop_toTopOf="@id/level_1" />
+
+                    <ImageView
+                        android:id="@+id/icon_1"
+                        android:layout_width="17.5dp"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@mipmap/ic_level_up"
+                        android:visibility="@{sugar.level == 1?View.VISIBLE:View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@id/level_1"
                         app:layout_constraintStart_toStartOf="@id/level_1"
                         app:layout_constraintTop_toBottomOf="@id/level_1" />
@@ -194,16 +342,28 @@
                         android:layout_width="54dp"
                         android:layout_height="54dp"
                         android:background="@drawable/bg_degree"
-                        android:src="@mipmap/ic_launcher"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/icon_2"
                         app:layout_constraintEnd_toStartOf="@id/level_3"
                         app:layout_constraintStart_toEndOf="@id/level_1"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_up"
+                        android:layout_width="31dp"
+                        android:layout_height="31dp"
+                        android:src="@{activity.resources.getDrawable(iconData.get(2))}"
+                        app:layout_constraintBottom_toBottomOf="@id/level_2"
+                        app:layout_constraintEnd_toEndOf="@id/level_2"
+                        app:layout_constraintStart_toStartOf="@id/level_2"
+                        app:layout_constraintTop_toTopOf="@id/level_2" />
+
+                    <ImageView
+                        android:id="@+id/icon_2"
+                        android:layout_width="17.5dp"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@mipmap/ic_level_up"
+                        android:visibility="@{sugar.level == 2?View.VISIBLE:View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@id/level_2"
                         app:layout_constraintStart_toStartOf="@id/level_2"
                         app:layout_constraintTop_toBottomOf="@id/level_2" />
@@ -213,15 +373,27 @@
                         android:layout_width="54dp"
                         android:layout_height="54dp"
                         android:background="@drawable/bg_degree"
-                        android:src="@mipmap/ic_launcher"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/icon_3"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_up"
+                        android:layout_width="31dp"
+                        android:layout_height="31dp"
+                        android:src="@{activity.resources.getDrawable(iconData.get(3))}"
+                        app:layout_constraintBottom_toBottomOf="@id/level_3"
+                        app:layout_constraintEnd_toEndOf="@id/level_3"
+                        app:layout_constraintStart_toStartOf="@id/level_3"
+                        app:layout_constraintTop_toTopOf="@id/level_3" />
+
+                    <ImageView
+                        android:id="@+id/icon_3"
+                        android:layout_width="17.5dp"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@mipmap/ic_level_up"
+                        android:visibility="@{sugar.level == 3?View.VISIBLE:View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@id/level_3"
                         app:layout_constraintStart_toStartOf="@id/level_3"
                         app:layout_constraintTop_toBottomOf="@id/level_3" />
@@ -236,6 +408,7 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/bg_btn_yellow"
+                android:onClickListener="@{()->activity.saveData()}"
                 android:text="Save"
                 android:textAllCaps="false"
                 android:textColor="@color/white"

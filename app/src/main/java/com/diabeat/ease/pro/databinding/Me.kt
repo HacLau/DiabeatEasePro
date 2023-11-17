@@ -5,6 +5,13 @@ import android.view.View.OnClickListener
 import androidx.databinding.BaseObservable
 
 data class Me (
-    var title:String = "",
-    var onItemCLick:OnClickListener = OnClickListener { }
+    var title:String = ""
 ):BaseObservable()
+
+
+val meList:List<Me> = mutableListOf(
+    Me("Feedback"),
+    Me("Privacy Policy"),
+    Me("Share app"),
+    Me("Upgrade")
+)

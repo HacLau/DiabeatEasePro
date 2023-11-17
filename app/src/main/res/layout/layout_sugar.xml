@@ -45,7 +45,7 @@
                 app:layout_constraintEnd_toStartOf="@id/cl_avg">
 
                 <TextView
-                    android:id="@+id/data_1"
+                    android:id="@+id/data_recent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
@@ -59,8 +59,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:text="mg/dl"
-                    app:layout_constraintBottom_toBottomOf="@id/data_1"
-                    app:layout_constraintStart_toEndOf="@id/data_1" />
+                    app:layout_constraintBottom_toBottomOf="@id/data_recent"
+                    app:layout_constraintStart_toEndOf="@id/data_recent" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -69,7 +69,7 @@
                     android:text="Recent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/data_1" />
+                    app:layout_constraintTop_toBottomOf="@id/data_recent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
@@ -92,7 +92,7 @@
                 app:layout_constraintStart_toEndOf="@id/cl_recent">
 
                 <TextView
-                    android:id="@+id/data_2"
+                    android:id="@+id/data_avg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
@@ -102,24 +102,23 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/data_2unit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="28dp"
                     android:text="mg/dl"
-                    app:layout_constraintStart_toEndOf="@id/data_2"
-                    app:layout_constraintBottom_toBottomOf="@id/data_2"/>
+                    app:layout_constraintStart_toEndOf="@id/data_avg"
+                    app:layout_constraintBottom_toBottomOf="@id/data_avg"/>
 
                 <TextView
-                    android:id="@+id/data_2_title"
+                    android:id="@+id/data_avg_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Average(3 days)"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/data_2"/>
+                    app:layout_constraintTop_toBottomOf="@id/data_avg"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

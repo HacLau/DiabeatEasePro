@@ -6,13 +6,16 @@
         <variable
             name="me"
             type="com.diabeat.ease.pro.databinding.Me" />
+        <variable
+            name="itemClick"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/bg_sugar"
-        android:onClickListener="@{me.onItemCLick}">
+        android:onClickListener="@{itemClick}">
 
         <TextView
             android:layout_width="wrap_content"

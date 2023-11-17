@@ -7,6 +7,11 @@
         <variable
             name="condition"
             type="com.diabeat.ease.pro.databinding.Condition" />
+
+
+        <variable
+            name="itemClick"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +32,8 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClickListener="@{itemClick}"/>
 
         <TextView
             android:id="@+id/item_content"

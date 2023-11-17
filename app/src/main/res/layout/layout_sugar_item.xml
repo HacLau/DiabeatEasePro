@@ -9,6 +9,24 @@
         <variable
             name="sugar"
             type="com.diabeat.ease.pro.databinding.Sugar" />
+
+        <variable
+            name="itemClick"
+            type="android.view.View.OnClickListener" />
+
+        <import type="java.util.List" />
+
+        <variable
+            name="titleData"
+            type="List&lt;String>" />
+
+        <variable
+            name="iconData"
+            type="List&lt;Integer>" />
+
+        <variable
+            name="colorData"
+            type="List&lt;Integer>" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +37,7 @@
             android:id="@+id/top_bg"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:src="@{sugar.topBg}"
+            android:src="@drawable/bg_sugar_item_top"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -27,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:text="@{LongKt.formatTimeItem(sugar.time)}"
-            android:textColor="@{sugar.timeColor}"
+            android:textColor="@{context.resources.getColor(colorData.get(sugar.level))}"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@id/top_bg"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +54,9 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:onClickListener="@{sugar.onItemClick}"
+            android:src="@mipmap/ic_edit"
+            android:layout_marginEnd="12dp"
+            android:onClickListener="@{itemClick}"
             app:layout_constraintBottom_toBottomOf="@id/top_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/top_bg"
@@ -46,7 +66,7 @@
             android:id="@+id/bottom_bg"
             android:layout_width="match_parent"
             android:layout_height="76dp"
-            android:src="@{sugar.bottomBg}"
+            android:src="@drawable/bg_sugar_item_bottom"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <ImageView
@@ -54,7 +74,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="18dp"
-            android:src="@{sugar.icon}"
+            android:src="@{context.resources.getDrawable(iconData.get(sugar.level))}"
             app:layout_constraintBottom_toBottomOf="@id/bottom_bg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/bottom_bg" />
@@ -83,7 +103,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{sugar.titleList.get(sugar.level)}"
+            android:text="@{titleData.get(sugar.level)}"
             android:textColor="#333333"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/icon"

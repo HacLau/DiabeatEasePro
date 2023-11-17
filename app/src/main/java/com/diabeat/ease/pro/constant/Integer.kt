@@ -10,5 +10,9 @@ fun Int.formatTwoString(): String {
     }
 }
 
+fun Int.formatTwo(): String {
+    return "$this.00"
+}
+
 fun Int.dp2px(context: Context): Int = (context.resources.displayMetrics.density * this).toInt()
 fun Int.px2dp(context: Context): Int = (this.toFloat() / context.resources.displayMetrics.density ).toInt()

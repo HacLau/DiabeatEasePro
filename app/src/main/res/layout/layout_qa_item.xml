@@ -7,22 +7,22 @@
         <variable
             name="qa"
             type="com.diabeat.ease.pro.databinding.QA" />
+
+        <variable
+            name="itemClick"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="162dp"
-        android:paddingStart="12dp"
-        android:paddingTop="6dp"
-        android:paddingEnd="12dp"
-        android:paddingBottom="6dp">
+        android:onClickListener="@{itemClick}">
 
         <ImageView
             android:id="@+id/qa_item_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/bg_qa_item"
-            app:tint="@color/bg_qa_item_3" />
+            android:src="@drawable/bg_qa_item" />
 
         <ImageView
             android:id="@+id/qa_item_icon_bg"
@@ -30,7 +30,7 @@
             android:layout_height="42.5dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
-            android:src="@{qa.icon}"
+            android:src="@{context.resources.getDrawable(qa.icon)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
