@@ -33,5 +33,7 @@
     <color name="normal">#B8B8B8</color>
     <color name="bg_nav">#13121A</color>
     <color name="bg_step">#DFECFF</color>
+    <color name="number_picker">#1C72FF</color>
+
 
 </resources>

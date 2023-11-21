@@ -30,7 +30,7 @@
             android:paddingEnd="16dp"
             android:text="@{title}"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -58,6 +58,7 @@
                 android:id="@+id/home_image"
                 android:layout_width="113dp"
                 android:layout_height="130dp"
+                android:src="@mipmap/image_home_top"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,7 +70,7 @@
                 android:paddingTop="23dp"
                 android:paddingEnd="33dp"
                 android:paddingBottom="23dp"
-                android:background="@color/bg_qa_item_icon_0"
+                android:background="@mipmap/bg_home_top"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/home_image"
                 app:layout_constraintTop_toTopOf="parent">

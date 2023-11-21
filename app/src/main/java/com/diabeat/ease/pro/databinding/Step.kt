@@ -10,8 +10,10 @@ data class Step(
     var image:Int = R.mipmap.ic_launcher_round
 ):BaseObservable()
 
-val listStep:MutableList<Step> = mutableListOf(
-    Step("One-Tap Blood Sugar Recording\nEffortlessly track your blood sugar levels", R.mipmap.image_step_1),
-    Step("Data Visualization & Analysis\nUnderstand trends in your body", R.mipmap.image_step_2),
-    Step("Professional Data Management\nGet expert support for your blood sugar data", R.mipmap.image_step_3)
-)
+val listStep:MutableList<Step> by lazy {
+    mutableListOf(
+        Step("One-Tap Blood Sugar Recording\nEffortlessly track your blood sugar levels", R.mipmap.image_step_1),
+        Step("Data Visualization & Analysis\nUnderstand trends in your body", R.mipmap.image_step_2),
+        Step("Professional Data Management\nGet expert support for your blood sugar data", R.mipmap.image_step_3)
+    )
+}

@@ -4,6 +4,21 @@
 
     <data>
 
+        <variable
+            name="activity"
+            type="com.diabeat.ease.pro.activity.MainActivity" />
+
+        <variable
+            name="selectTime"
+            type="String" />
+
+        <variable
+            name="historyVisible"
+            type="Integer" />
+
+        <variable
+            name="currentUnit"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,9 +34,10 @@
             android:layout_marginTop="3dp"
             android:background="@drawable/bg_btn_blue"
             android:drawableEnd="@drawable/ic_down"
+            android:onClickListener="@{()->activity.selectTime()}"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="234567"
+            android:text="@{selectTime}"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="14sp"
@@ -37,28 +53,33 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_recent"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/cl_avg"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/cl_avg">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/data_recent"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
                     android:text="160.0"
-                    android:textSize="24sp"
+                    android:textSize="15sp"
+                    android:gravity="end"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/unit_recent"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/unit_recent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="mg/dl"
+                    android:text="@{currentUnit}"
+                    android:gravity="start"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="@id/data_recent"
                     app:layout_constraintStart_toEndOf="@id/data_recent" />
 
@@ -67,8 +88,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Recent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/data_recent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -84,31 +105,36 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_avg"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/cl_recent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cl_recent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/data_avg"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
                     android:text="160.0"
-                    android:textSize="24sp"
+                    android:textSize="15sp"
+                    android:gravity="end"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/unit_3days"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/unit_3days"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="28dp"
-                    android:text="mg/dl"
-                    app:layout_constraintStart_toEndOf="@id/data_avg"
-                    app:layout_constraintBottom_toBottomOf="@id/data_avg"/>
+                    android:gravity="start"
+                    android:text="@{currentUnit}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/data_avg"
+                    app:layout_constraintStart_toEndOf="@id/data_avg" />
 
                 <TextView
                     android:id="@+id/data_avg_title"
@@ -116,9 +142,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Average(3 days)"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/data_avg"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/data_avg" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -133,12 +159,24 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <TextView
+            android:id="@+id/more"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:visibility="@{historyVisible}"
+            android:gravity="end|center_vertical"
+            android:onClickListener="@{()->activity.startHistoryActivity()}"
+            android:text="History>>"
+            app:layout_constraintBottom_toTopOf="@id/sugar_rv"
+            app:layout_constraintTop_toBottomOf="@id/sugar_chart" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sugar_rv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sugar_chart" />
+            app:layout_constraintTop_toBottomOf="@id/more" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

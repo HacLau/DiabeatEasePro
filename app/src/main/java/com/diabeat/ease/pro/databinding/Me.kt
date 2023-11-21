@@ -9,9 +9,11 @@ data class Me (
 ):BaseObservable()
 
 
-val meList:List<Me> = mutableListOf(
-    Me("Feedback"),
-    Me("Privacy Policy"),
-    Me("Share app"),
-    Me("Upgrade")
-)
+val meList:List<Me> by lazy {
+    mutableListOf(
+        Me("Feedback"),
+        Me("Privacy Policy"),
+        Me("Share app"),
+        Me("Upgrade")
+    )
+}

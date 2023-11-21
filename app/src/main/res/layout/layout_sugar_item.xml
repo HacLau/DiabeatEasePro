@@ -17,16 +17,25 @@
         <import type="java.util.List" />
 
         <variable
-            name="titleData"
-            type="List&lt;String>" />
-
-        <variable
             name="iconData"
             type="List&lt;Integer>" />
 
         <variable
             name="colorData"
             type="List&lt;Integer>" />
+
+        <variable
+            name="titleText"
+            type="String" />
+        <import type="com.diabeat.ease.pro.util.Shared"/>
+        <variable
+            name="bloodData"
+            type="String" />
+
+
+        <variable
+            name="currentUnit"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="13sp"
             android:fontFamily="sans-serif-black"
-            android:text="@{String.valueOf(sugar.data)}"
+            android:text="@{bloodData}"
             android:textColor="#13121A"
             android:textSize="19sp"
             app:layout_constraintStart_toEndOf="@id/icon"
@@ -94,7 +103,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="mg/dl"
+            android:text="@{currentUnit}"
             android:textColor="#333333"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@id/data"
@@ -103,7 +112,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{titleData.get(sugar.level)}"
+            android:text="@{titleText}"
             android:textColor="#333333"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/icon"

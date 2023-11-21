@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import com.diabeat.ease.pro.AppModel
+import com.diabeat.ease.pro.model.AppModel
 import com.diabeat.ease.pro.BuildConfig
 import com.diabeat.ease.pro.databinding.QA
 import com.diabeat.ease.pro.databinding.Sugar
@@ -60,6 +60,14 @@ abstract class BaseActivity<VB : ViewDataBinding>(@LayoutRes var redId: Int) : A
             putExtra("title", title)
             putExtra("url", url)
         })
+    }
+
+    fun startSugarActivity(){
+        startActivity(Intent(this,HistoryActivity::class.java))
+    }
+
+    fun startEditCondition(){
+        startActivity(Intent(this,ConditionActivity::class.java))
     }
 
     fun sharedApp() {

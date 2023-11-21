@@ -9,8 +9,8 @@ object DbHelper {
     fun insert(data: Sugar) {
         dbHelper.writableDatabase.apply {
             execSQL(
-                "insert into ${DbManager.tableSugar}(level,data,time, kind) values(?,?,?,?)",
-                arrayOf<String>("${data.level}", "${data.data}", "${data.time}", data.kind)
+                "insert into ${DbManager.tableSugar}(level,data,time, kind,unit) values(?,?,?,?,?)",
+                arrayOf<String>("${data.level}", "${data.data}", "${data.time}", data.kind,data.unit)
             )
             close()
         }
@@ -19,8 +19,8 @@ object DbHelper {
     fun update(data: Sugar) {
         dbHelper.writableDatabase.apply {
             execSQL(
-                "update ${DbManager.tableSugar} set level=?,data=?,time=?,kind=? where id=?",
-                arrayOf<String>("${data.level}", "${data.data}", "${data.time}", data.kind, "${data.id}")
+                "update ${DbManager.tableSugar} set level=?,data=?,time=?,kind=?,unit=? where id=?",
+                arrayOf<String>("${data.level}", "${data.data}", "${data.time}", data.kind, "${data.id}","${data.unit}")
             )
             close()
         }
@@ -42,7 +42,7 @@ object DbHelper {
                 it.rawQuery("select * from ${DbManager.tableSugar} where time/1000/60=? order by time desc", arrayOf("${minute / 1000 / 60}")).apply {
                     moveToFirst()
                     while (!isAfterLast) {
-                        list.add(Sugar(getInt(0), getInt(1), getFloat(2), getLong(3), getString(4)))
+                        list.add(Sugar(getInt(0), getInt(1), getFloat(2), getLong(3), getString(4),getString(5)))
                         moveToNext()
                     }
                     if (!isClosed) {
@@ -52,7 +52,6 @@ object DbHelper {
                 it.close()
             }
             list
-
         }
     }
     fun queryByKind(kind: String): List<Sugar> {
@@ -61,7 +60,7 @@ object DbHelper {
                 it.rawQuery("select * from ${DbManager.tableSugar} where kind=? order by time desc", arrayOf(kind)).apply {
                     moveToFirst()
                     while (!isAfterLast) {
-                        list.add(Sugar(getInt(0), getInt(1), getFloat(2), getLong(3), getString(4)))
+                        list.add(Sugar(getInt(0), getInt(1), getFloat(2), getLong(3), getString(4),getString(5)))
                         moveToNext()
                     }
                     if (!isClosed) {
@@ -81,7 +80,7 @@ object DbHelper {
                 it.rawQuery("select * from ${DbManager.tableSugar} order by time desc", null).apply {
                     moveToFirst()
                     while (!isAfterLast) {
-                        list.add(Sugar(getInt(0), getInt(1), getFloat(2), getLong(3), getString(4)))
+                        list.add(Sugar(getInt(0), getInt(1), getFloat(2), getLong(3), getString(4),getString(5)))
                         moveToNext()
                     }
                     if (!isClosed) {

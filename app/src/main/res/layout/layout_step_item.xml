@@ -20,7 +20,7 @@
             android:layout_marginTop="129dp"
             android:layout_marginEnd="18dp"
             android:gravity="center"
-            android:lineHeight="24sp"
+            android:lineHeight="15sp"
             android:lines="3"
             android:textSize="18sp"
             android:text="@{step.title}"

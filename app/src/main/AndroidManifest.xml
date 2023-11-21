@@ -16,6 +16,12 @@
         android:theme="@style/Theme.DiabeatEasePro"
         tools:targetApi="31">
         <activity
+            android:name=".activity.SaveSuccessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.HistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ConditionActivity"
             android:exported="false" />
         <activity

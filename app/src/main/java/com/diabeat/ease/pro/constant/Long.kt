@@ -29,3 +29,14 @@ fun Long.formatTimeNew(): MutableList<String> {
     }
 }
 
+fun Long.getPre3Days():Long{
+    return Calendar.getInstance().let {
+        it.timeInMillis = this
+        it.set(Calendar.DATE, - 3)
+        it.set(Calendar.HOUR_OF_DAY ,0)
+        it.set(Calendar.MINUTE, 0)
+        it.timeInMillis
+    }
+
+}
+

@@ -30,7 +30,7 @@
             android:paddingEnd="16dp"
             android:text="@{web.title}"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

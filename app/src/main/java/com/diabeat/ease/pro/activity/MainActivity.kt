@@ -1,7 +1,7 @@
 package com.diabeat.ease.pro.activity
 
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
@@ -11,19 +11,22 @@ import com.diabeat.ease.pro.adapter.MeAdapter
 import com.diabeat.ease.pro.adapter.QaAdapter
 import com.diabeat.ease.pro.adapter.SugarAdapter
 import com.diabeat.ease.pro.constant.formatTwo
+import com.diabeat.ease.pro.constant.getPre3Days
 import com.diabeat.ease.pro.databinding.ActivityMainBinding
 import com.diabeat.ease.pro.databinding.LayoutHomeBinding
 import com.diabeat.ease.pro.databinding.LayoutMeBinding
 import com.diabeat.ease.pro.databinding.LayoutQaBinding
 import com.diabeat.ease.pro.databinding.LayoutSugarBinding
 import com.diabeat.ease.pro.databinding.RG
-import com.diabeat.ease.pro.databinding.meList
+import com.diabeat.ease.pro.databinding.unitList
 import com.diabeat.ease.pro.db.DbHelper
+import com.diabeat.ease.pro.ui.ConditionPop
 import com.diabeat.ease.pro.ui.ItemBottomDecoration
 import com.diabeat.ease.pro.ui.ItemLRBottomDecoration
+import com.diabeat.ease.pro.util.Shared
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-    private var sugarAdapter = SugarAdapter(this, 1) {
+    private var sugarAdapter = SugarAdapter(this, 2) {
         startEditActivity(it) {
             resetSugarData()
         }
@@ -82,6 +85,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun initSugarBinding(): LayoutSugarBinding = LayoutSugarBinding.inflate(LayoutInflater.from(this@MainActivity)).apply {
+        activity = this@MainActivity
+        selectTime = Shared.defaultSelectTime
         this.sugarRv.apply {
             addItemDecoration(ItemBottomDecoration(context, 12))
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -123,15 +128,55 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun resetSugarData() {
-        DbHelper.query().let {
+        DbHelper.queryByKind(Shared.defaultSelectTime).let {
             sugarAdapter.list = it
-            sugarBinding.dataRecent.text = if (it.isNotEmpty()) "${it[0].data}" else "0.0"
+            sugarBinding.dataRecent.text = if (it.isNotEmpty()) it[0].let { entity ->
+                if (Shared.currentUnit == entity.unit) entity.data.toString() else {
+                    when (Shared.currentUnit) {
+                        unitList[0] -> (entity.data * 18.0f).formatTwo()
+                        else -> (entity.data / 18.0f).formatTwo()
+                    }
+                }
+            } else "0.0"
+            var avg: Float = 0f
+            val list = it.filter { sugar ->
+                sugar.time > System.currentTimeMillis().getPre3Days()
+            }
+            list.forEach { entity ->
+                avg += if (Shared.currentUnit == entity.unit) entity.data else {
+                    when (Shared.currentUnit) {
+                        unitList[0] -> entity.data * 18.0f
+                        else -> entity.data / 18.0f
+                    }
+                }
+            }
+            sugarBinding.dataAvg.text = if (list.isNotEmpty()) (avg / list.size).formatTwo() else "0.0"
+            if (it.isEmpty()) {
+                sugarBinding.historyVisible = View.GONE
+            } else {
+                sugarBinding.historyVisible = View.VISIBLE
+            }
+            sugarBinding.currentUnit = Shared.currentUnit
         }
 
-
-        DbHelper.query().forEach {
-            Log.e("MainActivity", it.toString())
-        }
     }
 
+    fun selectTime() {
+        ConditionPop(this).apply {
+            list = viewModel.conditionTime
+            checkIndex = viewModel.conditionTime.indexOf(Shared.defaultSelectTime)
+            cancelClick = {
+
+            }
+            confirmClick = {
+                Shared.defaultSelectTime = it
+                sugarBinding.selectTime = it
+                resetSugarData()
+            }
+        }.show()
+    }
+
+    fun startHistoryActivity() {
+        startSugarActivity()
+    }
 }
