@@ -6,11 +6,14 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import com.diabeat.ease.pro.R
+import com.diabeat.ease.pro.constant.formatTimeItem
 import com.diabeat.ease.pro.constant.formatTimeNew
 import com.diabeat.ease.pro.constant.formatTwo
 import com.diabeat.ease.pro.constant.log
 import com.diabeat.ease.pro.databinding.ActivityNewBinding
 import com.diabeat.ease.pro.databinding.Sugar
+import com.diabeat.ease.pro.databinding.conditionList
+import com.diabeat.ease.pro.databinding.desLevelList
 import com.diabeat.ease.pro.databinding.desList
 import com.diabeat.ease.pro.databinding.dlList
 import com.diabeat.ease.pro.databinding.iconList
@@ -19,7 +22,13 @@ import com.diabeat.ease.pro.databinding.titleList
 import com.diabeat.ease.pro.databinding.unitList
 import com.diabeat.ease.pro.db.DbHelper
 import com.diabeat.ease.pro.ui.ConditionPop
+import com.diabeat.ease.pro.ui.ConfirmDialog
+import com.diabeat.ease.pro.ui.DateTimeDialog
 import com.diabeat.ease.pro.util.Shared
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 class NewActivity : BaseActivity<ActivityNewBinding>(R.layout.activity_new) {
     private lateinit var sugar: Sugar
@@ -32,11 +41,8 @@ class NewActivity : BaseActivity<ActivityNewBinding>(R.layout.activity_new) {
             else -> "EditRecord"
         }
         sugar = intent.getParcelableExtra("sugar") ?: Sugar(unit = Shared.currentUnit)
-        binding.selectTime = sugar.kind
         binding.sugar = sugar
         binding.iconData = iconList
-        binding.titleData = titleList
-        binding.desData = desList
         binding.editUnit.text = sugar.unit
         binding.editData.apply {
             inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_CLASS_NUMBER
@@ -47,37 +53,38 @@ class NewActivity : BaseActivity<ActivityNewBinding>(R.layout.activity_new) {
                 false
             }
         }
+
         getLevelInSugar()
     }
 
     private fun checkInputData() {
-        if(binding.editData.text.toString().isNotBlank()){
+        "${Shared.currentUnit}   ${binding.editData.text}".log()
+        if (binding.editData.text.toString().isNotBlank()) {
             val data = binding.editData.text.toString().toFloat()
-            if (Shared.currentUnit == unitList[0] && (data <= 18.0f || data >= 630.0f)) {
-                binding.editNotice.text = "Please input right number range 18-630mg/DL"
+            if (Shared.currentUnit == unitList[0] && (data < 18.0f || data > 630.0f)) {
+                binding.editNotice.text = "Please input right number range 18-630mg/dl"
                 binding.editNotice.visibility = View.VISIBLE
                 sugar.data = 85.5f
-            } else if (Shared.currentUnit == unitList[1] && (data <= 1.0f || data >= 35.0f)) {
-                binding.editNotice.text = "Please input right number range 1.0-35.0 mmol/L"
+            } else if (Shared.currentUnit == unitList[1] && (data < 1.0f || data > 35.0f)) {
+                binding.editNotice.text = "Please input right number range 1.0-35.0 mmol/l"
                 binding.editNotice.visibility = View.VISIBLE
                 sugar.data = 4.75f
-            }else {
+            } else {
                 binding.editNotice.visibility = View.GONE
                 sugar.data = binding.editData.text.toString().toFloat()
             }
-            getLevelInSugar()
-        }else{
+        } else {
             if (Shared.currentUnit == unitList[0]) {
-                binding.editNotice.text = "Please input right number range 18-630mg/DL"
+                binding.editNotice.text = "Please input right number range 18-630mg/dl"
                 binding.editNotice.visibility = View.VISIBLE
                 sugar.data = 85.5f
             } else if (Shared.currentUnit == unitList[1]) {
-                binding.editNotice.text = "Please input right number range 1.0-35.0 mmol/L"
+                binding.editNotice.text = "Please input right number range 1.0-35.0 mmol/l"
                 binding.editNotice.visibility = View.VISIBLE
                 sugar.data = 4.75f
             }
-            getLevelInSugar()
         }
+        getLevelInSugar()
     }
 
     private fun getLevelInSugar() {
@@ -103,53 +110,87 @@ class NewActivity : BaseActivity<ActivityNewBinding>(R.layout.activity_new) {
             else -> 0
         }
         binding.sugar = sugar
+        conditionList.filter {
+            it.title == sugar.kind
+        }.let {
+            "kind = ${sugar.kind}  conditionList.size = ${conditionList.size}  it = ${it.size}".log()
+            if (it.isNotEmpty()) {
+                binding.titleData = it[0].titleList
+                binding.desData = it[0].desLevelList()
+            }
+        }
+
     }
 
     fun saveData() {
         sugar.unit = Shared.currentUnit
         sugar.data = binding.editData.text.toString().toFloat()
-        val list = DbHelper.queryByTime(sugar.time)
-        if (list.isEmpty()) {
-            when (type) {
-                1 -> DbHelper.insert(sugar)
-                else -> DbHelper.update(sugar)
+        when (type) {
+            1 -> {
+                val list = DbHelper.queryByTime(sugar.showTime)
+                if (list.isEmpty()) {
+                    DbHelper.insert(sugar)
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                } else {
+                    ConfirmDialog(this@NewActivity, clickConfirm = {
+                        DbHelper.update(sugar.apply {
+                            id = list[0].id
+                        })
+                        setResult(Activity.RESULT_OK)
+                        finish()
+                    }).show()
+
+                }
             }
-        } else {
-            DbHelper.update(sugar.apply {
-                id = list[0].id
-            })
+
+            else -> {
+                DbHelper.update(sugar)
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
         }
-        Log.e("NewActivity", sugar.toString())
-        setResult(Activity.RESULT_OK)
-        finish()
     }
 
     fun changeUnit() {
         when (Shared.currentUnit) {
-            unitList[0] -> Shared.currentUnit = unitList[1]
-            unitList[1] -> Shared.currentUnit = unitList[0]
+            unitList[0] -> {
+                Shared.currentUnit = unitList[1]
+            }
+            unitList[1] -> {
+                Shared.currentUnit = unitList[0]
+            }
         }
         binding.editUnit.text = Shared.currentUnit
         checkInputData()
+        setResult(Activity.RESULT_OK)
     }
 
     fun selectTime() {
         ConditionPop(this).apply {
             list = viewModel.conditionTime
-            checkIndex = viewModel.conditionTime.indexOf(binding.selectTime)
+            checkIndex = viewModel.conditionTime.indexOf(sugar.kind)
             cancelClick = {
 
             }
             confirmClick = {
-//                Shared.defaultSelectTime = it
-                binding.selectTime = it
                 sugar.kind = it
+                binding.sugar = sugar
             }
         }.show()
     }
 
     fun visibleNotice() {
         binding.editNotice.visibility = View.GONE
+    }
+
+    fun changeTime() {
+        DateTimeDialog(this, sugar.time, confirm = {
+            sugar.time = it
+            sugar.showTime = it.formatTimeItem()
+            binding.sugar = sugar
+            getLevelInSugar()
+        }).show()
     }
 
 

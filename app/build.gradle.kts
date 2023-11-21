@@ -21,8 +21,16 @@ android {
 
     buildTypes {
         release {
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            buildConfigField("String","privacy","\"https://github.com/dashboard\"")
+            buildConfigField("String","policy","\"https://www.google.com/\"")
+        }
+        debug {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            buildConfigField("String","privacy","\"https://github.com/dashboard\"")
+            buildConfigField("String","policy","\"https://www.google.com/\"")
         }
     }
     compileOptions {
@@ -50,4 +58,5 @@ dependencies {
 
     //gson
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }

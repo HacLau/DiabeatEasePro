@@ -9,6 +9,9 @@ import kotlin.reflect.KProperty
 object Shared {
     var defaultSelectTime by Preference("defaultSelectTime", "Default")
     var currentUnit by Preference("currentUnit", "mg/dl")
+    var launchedStart by Preference("launchedStart", false)
+    var launchedStep by Preference("launchedStep", false)
+    var backgroundTime by Preference("backgroundTime", System.currentTimeMillis())
 }
 
 class Preference<T>(val name: String, val default: T) {

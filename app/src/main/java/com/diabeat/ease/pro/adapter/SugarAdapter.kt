@@ -20,6 +20,7 @@ import com.diabeat.ease.pro.databinding.titleList
 import com.diabeat.ease.pro.databinding.topBgList
 import com.diabeat.ease.pro.databinding.unitList
 import com.diabeat.ease.pro.util.Shared
+import java.text.DecimalFormat
 
 class SugarAdapter(
     private val context: Context,
@@ -67,11 +68,11 @@ class SugarAdapter(
                         "${titleList[entity.level]}/${entity.kind}"
                     }
                     bloodData = if (Shared.currentUnit == entity.unit)
-                        entity.data.formatTwo()
+                        DecimalFormat("0.00").format(entity.data)
                     else {
                         when (Shared.currentUnit) {
-                            unitList[0] -> (entity.data * 18.0f).formatTwo()
-                            else -> (entity.data / 18.0f).formatTwo()
+                            unitList[0] -> DecimalFormat("0.00").format(entity.data * 18.0f)
+                            else -> DecimalFormat("0.00").format(entity.data / 18.0f)
                         }
                     }
                 }

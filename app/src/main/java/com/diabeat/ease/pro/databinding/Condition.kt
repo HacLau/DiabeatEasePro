@@ -10,12 +10,8 @@ data class Condition(
     var dl: List<Float> = dlList,
     var mol: List<Float> = molList,
     var titleList: MutableList<String> = mutableListOf(
-        "Low", "Normal", "Pre-diabetes", "Diabetes"
-    ),
-    var dataList: MutableList<String> = when (unit) {
-        unitList[0] -> mutableListOf("<${dl[0]}", "${dl[0]}-${dl[1]}", "${dl[1]}-${dl[2]}", ">=${dl[2]}")
-        else -> mutableListOf("<${mol[0]}", "${mol[0]}-${mol[1]}", "${mol[1]}-${mol[2]}", ">=${mol[2]}")
-    }
+        "Low", "Normal", "Pre ~ diabetes", "Diabetes"
+    )
 
 ) : BaseObservable()
 
@@ -49,4 +45,9 @@ val molList: List<Float> by lazy {
     mutableListOf(
         4.0f, 5.5f, 7.0f
     )
+}
+
+fun Condition.desLevelList():MutableList<String> = when (Shared.currentUnit) {
+    unitList[0]  -> mutableListOf("<${this.dl[0]}${Shared.currentUnit}", "${this.dl[0]}${Shared.currentUnit} ~ ${this.dl[1]}${Shared.currentUnit}", "${this.dl[1]}${Shared.currentUnit} ~ ${this.dl[2]}${Shared.currentUnit}", ">=${this.dl[2]}${Shared.currentUnit}")
+    else  -> mutableListOf("<${this.mol[0]}${Shared.currentUnit}", "${this.mol[0]}${Shared.currentUnit} ~ ${this.mol[1]}${Shared.currentUnit}", "${this.mol[1]}${Shared.currentUnit} ~ ${this.mol[2]}${Shared.currentUnit}", ">=${this.mol[2]}${Shared.currentUnit}")
 }

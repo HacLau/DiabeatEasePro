@@ -11,6 +11,7 @@ import com.diabeat.ease.pro.databinding.LayoutConditionItemBinding
 import com.diabeat.ease.pro.databinding.LayoutQaItemBinding
 import com.diabeat.ease.pro.databinding.QA
 import com.diabeat.ease.pro.databinding.conditionList
+import com.diabeat.ease.pro.databinding.desLevelList
 import com.diabeat.ease.pro.databinding.qaList
 
 class ConditionAdapter(
@@ -29,8 +30,10 @@ class ConditionAdapter(
         if (holder is ConditionItemViewHolder) {
             holder.binding.apply {
                 condition = conditionList[position]
+                dataList = conditionList[position].desLevelList()
                 itemClick = View.OnClickListener { onItemClickListener.invoke(conditionList[position]) }
             }
+
         }
     }
 

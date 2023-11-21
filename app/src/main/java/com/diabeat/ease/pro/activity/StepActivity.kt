@@ -1,14 +1,22 @@
 package com.diabeat.ease.pro.activity
 
 import android.content.res.ColorStateList
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import com.diabeat.ease.pro.BuildConfig
 import com.diabeat.ease.pro.R
 import com.diabeat.ease.pro.adapter.StepAdapter
 import com.diabeat.ease.pro.constant.dp2px
 import com.diabeat.ease.pro.constant.px2dp
 import com.diabeat.ease.pro.databinding.ActivityStepBinding
 import com.diabeat.ease.pro.databinding.listStep
+import com.diabeat.ease.pro.util.Shared
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.Timer
+import java.util.TimerTask
 
 class StepActivity : BaseActivity<ActivityStepBinding>(R.layout.activity_step) {
     private val next: MutableList<String> = mutableListOf(
@@ -18,6 +26,47 @@ class StepActivity : BaseActivity<ActivityStepBinding>(R.layout.activity_step) {
     private val nextWidth = 28
     override fun initData() {
         binding.activity = this
+        if (Shared.launchedStart.not())
+            initStartView()
+        else
+            initProgressView()
+    }
+
+    private fun initProgressView() {
+        binding.currentStep = 1
+        Timer().schedule(object : TimerTask() {
+            override fun run() {
+                if (binding.splashProgress.progress >= 100) {
+                    if (isResume) {
+                        cancel()
+                        CoroutineScope(Dispatchers.Main).launch {
+                            if (Shared.launchedStep) {
+                                startMainActivity()
+                            } else {
+                                initStepView()
+                            }
+                        }
+
+                    }
+                } else {
+                    binding.splashProgress.progress++
+                }
+
+            }
+        }, 33, 33)
+    }
+
+    private fun initStartView() {
+        binding.currentStep = 0
+        binding.startPrivacy.movementMethod = LinkMovementMethod.getInstance()
+        binding.startPrivacy.text = viewModel.spanText(onPrivacy = { title, url ->
+            startWebActivity(title, url)
+        }, onAgreement = { title, url ->
+            startWebActivity(title, url)
+        })
+    }
+    fun initStepView() {
+        binding.currentStep = 2
         binding.vp.apply {
             adapter = StepAdapter(this@StepActivity, listStep)
             addOnPageChangeListener(object : OnPageChangeListener {
@@ -43,11 +92,15 @@ class StepActivity : BaseActivity<ActivityStepBinding>(R.layout.activity_step) {
     fun clickNext(){
         if(binding.vp.currentItem == 2){
             startMainActivity()
+            Shared.launchedStep = true
         }else{
             binding.vp.currentItem += 1
         }
     }
-
+    fun clickStart(){
+        initProgressView()
+        Shared.launchedStart = true
+    }
 
     private fun setButtonText(position: Int) {
         binding.next = next[position]

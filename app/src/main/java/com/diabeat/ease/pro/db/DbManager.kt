@@ -17,7 +17,8 @@ class DbManager(context: Context):SQLiteOpenHelper(context,DataBaseName,null, ve
                 "data integer," +
                 "time integer," +
                 "kind varchar(50)," +
-                "unit varchar(50)" +
+                "unit varchar(50)," +
+                "showTime varchar(50)" +
                 ")"
     }
 

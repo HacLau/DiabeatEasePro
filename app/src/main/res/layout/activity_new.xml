@@ -34,10 +34,6 @@
         <variable
             name="desData"
             type="List&lt;String>" />
-
-        <variable
-            name="selectTime"
-            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,7 +85,7 @@
                 android:onClickListener="@{()->activity.selectTime()}"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                android:text="@{selectTime}"
+                android:text="@{sugar.kind}"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="14sp"
@@ -99,14 +95,25 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/new_date"
                 android:layout_width="match_parent"
-                android:layout_height="91dp"
+                android:layout_height="97dp"
                 android:layout_marginTop="14dp"
                 android:background="@drawable/bg_sugar"
                 android:padding="12dp"
                 app:layout_constraintBottom_toTopOf="@id/new_data"
                 app:layout_constraintTop_toBottomOf="@id/new_select_time">
 
+                <ImageView
+                    android:id="@+id/change_time"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:onClickListener="@{()->activity.changeTime()}"
+                    android:src="@mipmap/ic_edit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/new_date_title"
+                    app:layout_constraintBottom_toBottomOf="@id/new_date_title"/>
+
                 <TextView
+                    android:id="@+id/new_date_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Date"
@@ -249,7 +256,7 @@
                         android:background="#ffcccc"
                         android:visibility="gone"
                         android:layout_marginTop="10dp"
-                        android:text="Please input right number range 18-630mg/DL"
+                        android:text="Please input right number range 18-630mg/dl"
                         app:layout_constraintTop_toBottomOf="@id/edit_data"
                         android:textColor="#ff0000"/>
                     <ImageView
@@ -296,7 +303,6 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginEnd="12dp"
                     android:src="@mipmap/ic_edit"
                     android:onClickListener="@{()->activity.startEditCondition()}"
                     app:layout_constraintBottom_toBottomOf="@id/level_title"

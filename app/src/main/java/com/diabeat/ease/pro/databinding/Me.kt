@@ -1,7 +1,5 @@
 package com.diabeat.ease.pro.databinding
 
-import android.view.View
-import android.view.View.OnClickListener
 import androidx.databinding.BaseObservable
 
 data class Me (
@@ -13,7 +11,6 @@ val meList:List<Me> by lazy {
     mutableListOf(
         Me("Feedback"),
         Me("Privacy Policy"),
-        Me("Share app"),
-        Me("Upgrade")
+        Me("Share app")
     )
 }

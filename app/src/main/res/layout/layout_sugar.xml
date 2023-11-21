@@ -154,9 +154,13 @@
             android:layout_width="match_parent"
             android:layout_height="245dp"
             android:layout_marginTop="14dp"
+            android:padding="4dp"
             android:background="@drawable/bg_sugar"
             app:layout_constraintTop_toBottomOf="@id/sugar_data">
-
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView

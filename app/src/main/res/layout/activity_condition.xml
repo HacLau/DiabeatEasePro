@@ -58,21 +58,20 @@
                 android:id="@+id/home_image"
                 android:layout_width="113dp"
                 android:layout_height="130dp"
-                android:src="@mipmap/image_home_top"
+                android:src="@mipmap/image_condition"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="89dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginEnd="-17dp"
+                android:background="@mipmap/bg_condition"
                 android:paddingStart="16dp"
-                android:paddingTop="23dp"
                 android:paddingEnd="33dp"
-                android:paddingBottom="23dp"
-                android:background="@mipmap/bg_home_top"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/home_image"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -80,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:lines="3"
-                    android:text="Keep recording your blood pressure to understand your health status"
+                    android:text="Here are standard blood sugar values. For accuracy, consult your doctor for precise readings."
                     android:textColor="@color/white"
                     android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="parent"

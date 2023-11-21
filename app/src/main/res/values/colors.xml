@@ -34,6 +34,7 @@
     <color name="bg_nav">#13121A</color>
     <color name="bg_step">#DFECFF</color>
     <color name="number_picker">#1C72FF</color>
+    <color name="setting_item_line">#F8F8F8</color>
 
 
 </resources>

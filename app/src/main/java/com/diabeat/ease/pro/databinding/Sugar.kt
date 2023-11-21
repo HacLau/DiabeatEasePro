@@ -3,6 +3,8 @@ package com.diabeat.ease.pro.databinding
 import android.os.Parcelable
 import androidx.databinding.BaseObservable
 import com.diabeat.ease.pro.R
+import com.diabeat.ease.pro.constant.formatTimeItem
+import com.diabeat.ease.pro.constant.transData
 import com.diabeat.ease.pro.util.Shared
 import kotlinx.parcelize.Parcelize
 
@@ -10,10 +12,11 @@ import kotlinx.parcelize.Parcelize
 data class Sugar(
     var id: Int = 0,
     var level: Int = 0,
-    var data: Float = 0f,
+    var data: Float = 4.75f.transData(),
     var time: Long = System.currentTimeMillis(),
     var kind: String = conditionList[0].title,
-    var unit: String = Shared.currentUnit
+    var unit: String = Shared.currentUnit,
+    var showTime: String = time.formatTimeItem()
 ) : BaseObservable(), Parcelable
 
 
@@ -62,5 +65,16 @@ val titleColorList: MutableList<Int> by lazy {
         R.color.text_sugar_item_title_3
     )
 }
+
+fun Sugar.transData():Float{
+    return if (Shared.currentUnit == unit) data else {
+        when (Shared.currentUnit) {
+            unitList[0] -> data * 18.0f
+            else -> data / 18.0f
+        }
+    }
+}
+
+
 
 

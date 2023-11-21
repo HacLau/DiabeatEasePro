@@ -1,11 +1,12 @@
 package com.diabeat.ease.pro.constant
 
-fun Float.formatTwo():String{
-    return  if (this.toInt().toFloat() == this){
-        this.toInt().formatTwo()
-    }else if ((this * 10 ).toInt().toFloat() == this * 10){
-        "${this}0"
-    }else{
-        "$this"
+import com.diabeat.ease.pro.databinding.unitList
+import com.diabeat.ease.pro.util.Shared
+
+fun Float.transData():Float{
+    return when (Shared.currentUnit) {
+        unitList[0] -> this * 18.0f
+        else -> this
     }
+
 }

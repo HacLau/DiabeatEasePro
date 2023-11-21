@@ -19,6 +19,7 @@ abstract class BaseActivity<VB : ViewDataBinding>(@LayoutRes var redId: Int) : A
     val viewModel: AppModel by lazy { ViewModelProvider(this)[AppModel::class.java] }
     private var onResultSuccess: () -> Unit = {}
 
+    var isResume = false
     private var forResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
             onResultSuccess.invoke()
@@ -27,7 +28,33 @@ abstract class BaseActivity<VB : ViewDataBinding>(@LayoutRes var redId: Int) : A
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        isResume = false
         initData()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        isResume = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isResume = true
+    }
+
+    override fun onPause() {
+        super.onPause()
+        isResume = false
+    }
+
+    override fun onStop() {
+        super.onStop()
+        isResume = false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        isResume = false
     }
 
     abstract fun initData()
@@ -47,6 +74,7 @@ abstract class BaseActivity<VB : ViewDataBinding>(@LayoutRes var redId: Int) : A
 
     fun startMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     fun startQaActivity(qa: QA) {

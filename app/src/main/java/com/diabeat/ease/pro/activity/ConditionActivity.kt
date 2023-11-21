@@ -9,6 +9,7 @@ import com.diabeat.ease.pro.ui.ItemBottomDecoration
 class ConditionActivity : BaseActivity<ActivityConditionBinding>(R.layout.activity_condition) {
     override fun initData() {
         binding.activity = this
+        binding.title = "Condition"
         binding.conditionRv.apply {
             addItemDecoration(ItemBottomDecoration(context, 12))
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
