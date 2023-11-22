@@ -11,6 +11,9 @@ object Shared {
     var currentUnit by Preference("currentUnit", "mg/dl")
     var launchedStart by Preference("launchedStart", false)
     var launchedStep by Preference("launchedStep", false)
+    var cloakState by Preference("cloakState", "")
+    var androidId by Preference("androidId", "")
+    var logId by Preference("logId", "")
     var backgroundTime by Preference("backgroundTime", System.currentTimeMillis())
 }
 

@@ -23,10 +23,10 @@ data class QA(
     @ColorRes
     var bg: Int = R.color.bg_qa_item_0
 ) : BaseObservable(), Parcelable
-
+@Parcelize
 data class QAEntity(
     val topics:List<QA> = mutableListOf()
-)
+):Parcelable
 val bgItemList: List<Int> by lazy {
     mutableListOf<Int>(
         R.color.bg_qa_item_0,

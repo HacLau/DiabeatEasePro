@@ -33,12 +33,16 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             buildConfigField("String","privacy","\"https://github.com/dashboard\"")
             buildConfigField("String","policy","\"https://www.google.com/\"")
+            buildConfigField("String","clockUrl","\"https://pax.diabetesease.com/now/lyman/tribe\"")
+            buildConfigField("String", "updateUrl", "\"https://serial.diabetesease.com/glue/fink/berg\"")
         }
         debug {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             buildConfigField("String","privacy","\"https://github.com/dashboard\"")
             buildConfigField("String","policy","\"https://www.google.com/\"")
+            buildConfigField("String","clockUrl","\"https://pax.diabetesease.com/now/lyman/tribe\"")
+            buildConfigField("String", "updateUrl", "\"https://test-serial.diabetesease.com/basso/profit\"")
         }
     }
     compileOptions {
@@ -69,4 +73,5 @@ dependencies {
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     //stringfog
     implementation("com.github.megatronking.stringfog:xor:5.0.0")
+    implementation("com.squareup.okhttp3:okhttp:3.2.0")
 }
