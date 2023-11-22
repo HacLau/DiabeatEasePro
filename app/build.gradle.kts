@@ -3,8 +3,16 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("kotlin-kapt")
+    id("stringfog")
 }
-
+apply(plugin = "stringfog")
+configure<com.github.megatronking.stringfog.plugin.StringFogExtension> {
+    implementation = "com.github.megatronking.stringfog.xor.StringFogImpl"
+    enable = true
+    fogPackages = arrayOf("com.diabeat.ease.pro")
+    kg = com.github.megatronking.stringfog.plugin.kg.RandomKeyGenerator()
+    mode = com.github.megatronking.stringfog.plugin.StringFogMode.bytes
+}
 android {
     namespace = "com.diabeat.ease.pro"
     compileSdk = 33
@@ -14,7 +22,7 @@ android {
         minSdk = 24
         targetSdk = 33
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -59,4 +67,6 @@ dependencies {
     //gson
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    //stringfog
+    implementation("com.github.megatronking.stringfog:xor:5.0.0")
 }

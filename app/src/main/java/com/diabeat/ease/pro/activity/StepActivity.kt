@@ -9,6 +9,7 @@ import com.diabeat.ease.pro.R
 import com.diabeat.ease.pro.adapter.StepAdapter
 import com.diabeat.ease.pro.constant.dp2px
 import com.diabeat.ease.pro.constant.px2dp
+import com.diabeat.ease.pro.constant.toast
 import com.diabeat.ease.pro.databinding.ActivityStepBinding
 import com.diabeat.ease.pro.databinding.listStep
 import com.diabeat.ease.pro.util.Shared
@@ -98,8 +99,12 @@ class StepActivity : BaseActivity<ActivityStepBinding>(R.layout.activity_step) {
         }
     }
     fun clickStart(){
-        initProgressView()
-        Shared.launchedStart = true
+        if(binding.startCheck.isChecked) {
+            initProgressView()
+            Shared.launchedStart = true
+        }else{
+            "please checked the Privacy Policy and Terms of Service".toast(this)
+        }
     }
 
     private fun setButtonText(position: Int) {

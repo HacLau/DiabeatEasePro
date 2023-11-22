@@ -2,6 +2,7 @@ package com.diabeat.ease.pro.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.LayoutRes
@@ -28,6 +29,7 @@ abstract class BaseActivity<VB : ViewDataBinding>(@LayoutRes var redId: Int) : A
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         isResume = false
         initData()
     }
@@ -90,8 +92,9 @@ abstract class BaseActivity<VB : ViewDataBinding>(@LayoutRes var redId: Int) : A
         })
     }
 
-    fun startSugarActivity(){
-        startActivity(Intent(this,HistoryActivity::class.java))
+    fun startSugarActivity(onResult: () -> Unit){
+        onResultSuccess = onResult
+        forResult.launch(Intent(this,HistoryActivity::class.java))
     }
 
     fun startEditCondition(){

@@ -15,6 +15,7 @@ import com.diabeat.ease.pro.adapter.SugarAdapter
 import com.diabeat.ease.pro.constant.formatTimeMain
 import com.diabeat.ease.pro.constant.formatTimeTwo
 import com.diabeat.ease.pro.constant.formatTwo
+import com.diabeat.ease.pro.constant.getLastDaysMills
 import com.diabeat.ease.pro.constant.getPre3Days
 import com.diabeat.ease.pro.constant.log
 import com.diabeat.ease.pro.databinding.ActivityMainBinding
@@ -123,7 +124,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     granularity = 1f
                     valueFormatter = object : ValueFormatter() {
                         override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-                            return xAxisValues[value.toInt() % xAxisValues.size]
+                            return if (xAxisValues.isNotEmpty()) xAxisValues[value.toInt() % xAxisValues.size] else ""
                         }
                     }
                 }
@@ -160,8 +161,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun setChartData(it: List<Sugar>) {
         chartValues.clear()
         xAxisValues.clear()
-        var min: Float = it[0].transData()
-        var max: Float = it[0].transData()
+        var min: Float = if (it.isEmpty()) 0f else it[0].transData()
+        var max: Float = if (it.isEmpty()) 0f else it[0].transData()
         for (i in it.indices) {
             "i = ${i.toFloat()} data = ${it[i].transData()} time = ${it[i].time.formatTimeTwo()}".log()
             xAxisValues.add(it[i].time.formatTimeTwo())
@@ -171,8 +172,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             if (max - it[i].transData() < 0)
                 max = it[i].transData()
         }
-        if (min - 30 < 0)
+        if (min - 30 < 0) {
             min = 0.0f
+        }else{
+            min -= 30
+        }
         max += 30f
         minValue = min
         maxValue = max
@@ -243,21 +247,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             sugarBinding.dataRecent.text = if (it.isNotEmpty()) DecimalFormat("0.00").format(it[0].transData()) else "0.0"
             var avg: Float = 0f
             val list = it.filter { sugar ->
-                sugar.time > System.currentTimeMillis().getPre3Days()
+                sugar.time > 2.getLastDaysMills()
             }
             list.forEach { entity ->
                 avg += entity.transData()
             }
             sugarBinding.dataAvg.text = if (list.isNotEmpty()) DecimalFormat("0.00").format(avg / list.size) else "0.0"
             if (it.isEmpty()) {
-                sugarBinding.historyVisible = View.GONE
+                sugarBinding.more.visibility = View.GONE
             } else {
-                sugarBinding.historyVisible = View.VISIBLE
+                sugarBinding.more.visibility = View.VISIBLE
             }
             sugarBinding.currentUnit = Shared.currentUnit
-            if (it.isNotEmpty()) {
-                setChartData(it)
-            }
+            setChartData(it)
         }
 
     }
@@ -278,6 +280,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     fun startHistoryActivity() {
-        startSugarActivity()
+        startSugarActivity{
+            resetSugarData()
+        }
     }
 }

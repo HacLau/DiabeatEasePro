@@ -38,13 +38,20 @@ fun Long.formatTimeNew(): MutableList<String> {
 
 fun Long.getPre3Days():Long{
     return Calendar.getInstance().let {
-        it.timeInMillis = this
-        it.set(Calendar.DATE, - 3)
-        it.set(Calendar.HOUR_OF_DAY ,0)
-        it.set(Calendar.MINUTE, 0)
+        it.set(it.get(Calendar.YEAR),it.get(Calendar.MONTH),it.get(Calendar.DAY_OF_MONTH - 2),0,0,0)
         it.timeInMillis
     }
 
+}
+
+fun Int.getLastDaysMills():Long{
+    return Calendar.getInstance().let {
+        it.set(Calendar.DATE, it.get(Calendar.DATE) - this)
+        it.set(Calendar.HOUR_OF_DAY, 0)
+        it.set(Calendar.MINUTE, 0)
+        it.set(Calendar.SECOND, 0)
+        it.timeInMillis
+    }
 }
 
 

@@ -1,5 +1,6 @@
 package com.diabeat.ease.pro.activity
 
+import android.app.Activity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.diabeat.ease.pro.R
 import com.diabeat.ease.pro.adapter.SugarAdapter
@@ -10,6 +11,7 @@ import com.diabeat.ease.pro.ui.ItemBottomDecoration
 class HistoryActivity : BaseActivity<ActivityHistoryBinding>(R.layout.activity_history) {
     private var sugarAdapter = SugarAdapter(this) {
         startEditActivity(it) {
+            setResult(Activity.RESULT_OK)
             resetSugarData()
         }
     }
